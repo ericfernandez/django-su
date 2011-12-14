@@ -39,7 +39,7 @@ def su_login(request, user_form=UserSuForm):
 def su_exit(request):
     exit_users_pk = request.session.get("exit_users_pk", default=[])
     if not exit_users_pk:
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect(getattr(settings, "SU_REDIRECT_EXIT", "/"))
 
     staff_user = User.objects.get(pk=exit_users_pk[-1])
     staff_user.backend = settings.AUTHENTICATION_BACKENDS[0]
